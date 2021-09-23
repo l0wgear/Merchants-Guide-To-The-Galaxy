@@ -22,7 +22,7 @@ def get_roman_values(num_assignment):
     Keyword arguments:
     num_assignment -- list of numerical assignment strings
     """
-    pass
+    return {item.split(' ')[0]:item.split(' ')[2] for item in num_assignment}
 
 
 def convert_str_to_decimal(str, roman_values):
