@@ -1,4 +1,3 @@
-import re
 import roman
 
 
@@ -23,7 +22,7 @@ def get_roman_values(num_assignment):
     Keyword arguments:
     num_assignment -- list of numerical assignment strings
     """
-    return {item.split(' ')[0]:item.split(' ')[2] for item in num_assignment}
+    return {item.split(' ')[0]: item.split(' ')[2] for item in num_assignment}
 
 
 def convert_str_to_decimal(str, roman_values):
@@ -36,7 +35,7 @@ def convert_str_to_decimal(str, roman_values):
     """
     try:
         roman_numeral = "".join([roman_values[item] for item in str.split(' ')])
-        return roman.fromRoman(roman_numeral) 
+        return roman.fromRoman(roman_numeral)
     except roman.InvalidRomanNumeralError:
         raise roman.InvalidRomanNumeralError("Invalid numeral")
     except KeyError:
@@ -78,7 +77,7 @@ def calculate_query_results(queries, credit_values, roman_values):
             try:
                 num_value = convert_str_to_decimal(query[12:-2], roman_values)
                 results.append(f"{query[12:-2]} is {num_value}")
-            except roman.InvalidRomanNumeralError as e:
+            except roman.InvalidRomanNumeralError:
                 results.append("Invalid numeral")
             except KeyError:
                 results.append("Insufficient data")
@@ -91,7 +90,7 @@ def calculate_query_results(queries, credit_values, roman_values):
                 credit_value = credit_values[material]
                 price = num_value * credit_value
                 results.append(f"{query[20:-2]} is {price} Credits")
-            except roman.InvalidRomanNumeralError as e:
+            except roman.InvalidRomanNumeralError:
                 results.append("Invalid numeral")
             except KeyError:
                 results.append("Insufficient data")
@@ -99,9 +98,11 @@ def calculate_query_results(queries, credit_values, roman_values):
             results.append("Unknown query")
     return results
 
+
 def output_results(results):
     for result in results:
         print(result)
+
 
 def main(input_file="input.txt"):
     """
