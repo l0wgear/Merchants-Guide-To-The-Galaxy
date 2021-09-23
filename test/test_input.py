@@ -39,9 +39,24 @@ def test_get_credit_values():
     credit_assignment = ["glob glob Silver is 34 Credits"]
     assert m.get_credit_values(credit_assignment, roman_values) == {"Silver": 17}
 
-def test_calculate_query_results():
+def test_calculate_query_results_credits():
     queries = ["how many Credits is glob prok Silver ?"]
     cv = {"Silver": 17}
     rv = {"glob": "I", "prok": "V"}
     assert m.calculate_query_results(queries, cv, rv) == ["glob prok Silver is 68 Credits"]
+
+def test_calculate_query_results_number():
+    queries = ["how much is prok glob glob ?"]
+    rv = {"glob": "I", "prok": "V"}
+    assert m.calculate_query_results(queries, {}, rv) == ["prok glob glob is 7"]
+
+def test_calculate_query_results_InvalidNumeral():
+    queries = ["how much is glob glob prok glob glob ?"]
+    rv = {"glob": "I", "prok": "V"}
+    m.calculate_query_results(queries, {}, rv) == ["Invalid numeral"]
+
+def test_calculate_query_results_KeyError():
+    queries = ["how much is test ?"]
+    rv = {"glob": "I", "prok": "V"}
+    m.calculate_query_results(queries, {}, rv) == ["Insufficient numerical data"]
 
