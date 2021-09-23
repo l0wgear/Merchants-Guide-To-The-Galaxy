@@ -43,6 +43,6 @@ def test_get_credit_values():
 def test_calculate_query_results():
     queries = ["how many Credits is glob prok Silver ?"]
     cv = {"Silver": 17}
-    rv = {"glob": "I", "proc": "V"}
+    rv = {"glob": "I", "prok": "V"}
     assert m.calculate_query_results(queries, cv, rv) == ["glob prok Silver is 68 Credits"]
 
