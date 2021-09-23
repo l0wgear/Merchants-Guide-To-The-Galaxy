@@ -15,7 +15,7 @@ def test_destructure_input():
 
 def test_get_roman_values():
     num_assignment = ["glob is I", "prok is V"]
-    result = {"glob": "I", "proc": "V"}
+    result = {"glob": "I", "prok": "V"}
     assert m.get_roman_values(num_assignment) == result
 
 def test_convert_str_to_decimal():
