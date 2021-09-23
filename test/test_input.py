@@ -50,13 +50,43 @@ def test_calculate_query_results_number():
     rv = {"glob": "I", "prok": "V"}
     assert m.calculate_query_results(queries, {}, rv) == ["prok glob glob is 7"]
 
-def test_calculate_query_results_InvalidNumeral():
+def test_calculate_query_results_number_InvalidNumeral():
     queries = ["how much is glob glob prok glob glob ?"]
     rv = {"glob": "I", "prok": "V"}
     m.calculate_query_results(queries, {}, rv) == ["Invalid numeral"]
 
-def test_calculate_query_results_KeyError():
+def test_calculate_query_results_number_KeyError():
     queries = ["how much is test ?"]
     rv = {"glob": "I", "prok": "V"}
     m.calculate_query_results(queries, {}, rv) == ["Insufficient numerical data"]
 
+def test_calculate_query_results_credits_InvalidNumeral():
+    queries = ["how many Credits is glob glob prok Silver ?"]
+    cv = {"Silver": 17}
+    rv = {"glob": "I", "prok": "V"}
+    assert m.calculate_query_results(queries, cv, rv) == ["Invalid numeral"]
+
+def test_calculate_query_results_credits_KeyError():
+    queries = ["how many Credits is glob prok Silver ?"]
+    cv = {"Test": 17}
+    rv = {"glob": "I", "prok": "V"}
+    assert m.calculate_query_results(queries, cv, rv) == ["Insufficient data"]
+
+def test_calculate_query_results_credits_unknown_query():
+    queries = ["how much wood would a woodchuck chuck ?"]
+    cv = {"Test": 17}
+    rv = {"glob": "I", "prok": "V"}
+    assert m.calculate_query_results(queries, cv, rv) == ["Unknown query"]
+
+def test_output_results():
+    results = ["Test result 1", "Test result 2"]
+    m.output_results(results)
+    assert True
+
+def test_main():
+    expected_results = ["pish tegj glob glob is 42", 
+            "glob prok Silver is 68 Credits"
+            "glob prok Gold is 57800 Credits"
+            "glob prok Iron is 782 Credits",
+            "Unknown query"]
+    results = m.main("test/test_input.txt")
