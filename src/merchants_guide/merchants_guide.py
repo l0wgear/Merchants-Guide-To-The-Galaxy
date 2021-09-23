@@ -1,5 +1,6 @@
 import roman
 
+
 def destructure_input(input):
     """
     Destructures input and returns lists of numerical assignments,
@@ -8,7 +9,11 @@ def destructure_input(input):
     Keyword arguments:
     input -- input text with new line separators
     """
-    pass
+    num_assignment = [item.strip() for item in input.split("\n") if "Credits" not in item and "?" not in item]
+    credit_assignment = [item.strip() for item in input.split("\n") if "Credits" in item and "?" not in item]
+    queries = [item.strip() for item in input.split("\n") if "?" in item]
+    return num_assignment, credit_assignment, queries
+
 
 def get_roman_values(num_assignment):
     """
@@ -19,6 +24,7 @@ def get_roman_values(num_assignment):
     """
     pass
 
+
 def convert_str_to_decimal(str, roman_values):
     """
     Converts an intergalactic number into decimal system
@@ -28,7 +34,8 @@ def convert_str_to_decimal(str, roman_values):
     roman_values -- dictionary of units and their roman values
     """
     pass
-    
+
+
 def get_credit_values(credit_assignment, roman_values):
     """
     Forms a dictionary of materials and their values
@@ -38,6 +45,7 @@ def get_credit_values(credit_assignment, roman_values):
     credit_assignment -- list of credit assignment strings
     """
     pass
+
 
 def calculate_query_results(queries, credit_values, roman_values):
     """
