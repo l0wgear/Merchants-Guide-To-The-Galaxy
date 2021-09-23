@@ -4,16 +4,15 @@ import roman
 
 def destructure_input(input):
     """
-    Destructures input and returns lists of numerical assignments,
+    Destructures input list and returns lists of numerical assignments,
     credit assignments and queries
 
     Keyword arguments:
     input -- input text with new line separators
     """
-    # input = input.lower()
-    num_assignment = [item.strip() for item in input.split("\n") if "Credits" not in item and "?" not in item]
-    credit_assignment = [item.strip() for item in input.split("\n") if "Credits" in item and "?" not in item]
-    queries = [item.strip() for item in input.split("\n") if "?" in item]
+    num_assignment = [item.strip() for item in input if "Credits" not in item and "?" not in item]
+    credit_assignment = [item.strip() for item in input if "Credits" in item and "?" not in item]
+    queries = [item.strip() for item in input if "?" in item]
     return num_assignment, credit_assignment, queries
 
 
@@ -64,7 +63,6 @@ def get_credit_values(credit_assignment, roman_values):
     return credit_values
 
 
-
 def calculate_query_results(queries, credit_values, roman_values):
     """
     Calculates values for query results
@@ -78,8 +76,8 @@ def calculate_query_results(queries, credit_values, roman_values):
     for query in queries:
         if ("how much is " in query):
             try:
-                num_value = convert_str_to_decimal(query[13:-2], roman_values)
-                results.append(f"{query[13:-2]} is {num_value}")
+                num_value = convert_str_to_decimal(query[12:-2], roman_values)
+                results.append(f"{query[12:-2]} is {num_value}")
             except (roman.InvalidRomanNumeralError, KeyError) as e:
                 results.append(e)
         elif ("how many Credits is " in query):
@@ -88,7 +86,6 @@ def calculate_query_results(queries, credit_values, roman_values):
                 intergalactic_num = " ".join(split_list[0:-1])
                 num_value = convert_str_to_decimal(intergalactic_num, roman_values)
                 material = split_list[-1]
-                print(num_value, material)
                 credit_value = credit_values[material]
                 price = num_value * credit_value
                 results.append(f"{query[20:-2]} is {price} Credits")
@@ -99,3 +96,22 @@ def calculate_query_results(queries, credit_values, roman_values):
         else:
             results.append("Unknown query")
     return results
+
+def output_results(results):
+    for result in results:
+        print(result)
+
+def main():
+    """
+    Reads input from a file and writes conversion results to console
+    """
+    with open("input.txt") as input:
+        num_assignment, credit_assignment, queries = destructure_input(input.readlines())
+    roman_values = get_roman_values(num_assignment)
+    credit_values = get_credit_values(credit_assignment, roman_values)
+    query_results = calculate_query_results(queries, credit_values, roman_values)
+    output_results(query_results)
+
+
+if (__name__ == "__main__"):
+    main()
