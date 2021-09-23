@@ -3,9 +3,8 @@ import pytest
 import roman
 
 def test_destructure_input():
-    input = "glob is I\nprok is V\n\
-        glob glob Silver is 34 Credits\n\
-        how many Credits is glob prok Silver ?"
+    input = ["glob is I", "prok is V", "glob glob Silver is 34 Credits",
+        "how many Credits is glob prok Silver ?"]
     num_assignment = ["glob is I", "prok is V"]
     credit_assignment = ["glob glob Silver is 34 Credits"]
     queries = ["how many Credits is glob prok Silver ?"]
