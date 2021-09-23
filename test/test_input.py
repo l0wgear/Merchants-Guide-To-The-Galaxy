@@ -1,4 +1,6 @@
 import merchants_guide.merchants_guide as m
+import pytest
+import roman
 
 def test_destructure_input():
     input = "glob is I\nprok is V\n\
@@ -22,6 +24,16 @@ def test_convert_str_to_decimal():
     roman_values = {"glob": "I", "proc": "V"}
     assert m.convert_str_to_decimal("glob glob", roman_values) is 2
     assert m.convert_str_to_decimal("glob proc", roman_values) is 4
+
+def test_convert_str_to_decimal_InvalidNumeral():
+    roman_values = {"glob": "I", "proc": "V"}
+    with pytest.raises(roman.InvalidRomanNumeralError):
+        m.convert_str_to_decimal("glob glob glob glob", roman_values)
+
+def test_convert_str_to_decimal_KeyError():
+    roman_values = {"glob": "I", "proc": "V"}
+    with pytest.raises(KeyError):
+        m.convert_str_to_decimal("test", roman_values)
 
 def test_get_credit_values():
     roman_values = {"glob": "I", "proc": "V"}
