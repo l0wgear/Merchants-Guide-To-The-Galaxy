@@ -33,7 +33,13 @@ def convert_str_to_decimal(str, roman_values):
     str -- intergalactic number as a string
     roman_values -- dictionary of units and their roman values
     """
-    pass
+    roman_numeral = "".join([roman_values[item] for item in str.split(' ')])
+    try:
+        return roman.fromRoman(roman_numeral) 
+    except roman.InvalidRomanNumeralError:
+        raise roman.InvalidRomanNumeralError("Invalid numeral")
+    except KeyError:
+        raise KeyError("Insufficient numerical data")
 
 
 def get_credit_values(credit_assignment, roman_values):
@@ -44,7 +50,17 @@ def get_credit_values(credit_assignment, roman_values):
     roman_values -- dictionary of units and their roman values
     credit_assignment -- list of credit assignment strings
     """
-    pass
+    credit_values = {}
+    for item in credit_assignment:
+        word_list = item.split(' ')
+        key = word_list[0:word_list.index('is')]
+        decimal_num = convert_str_to_decimal(" ".join(key[0:-1]), roman_values)
+        material = key[-1]
+        value = int(word_list[word_list.index('is') + 1])
+        material_price = value / decimal_num
+        credit_values[material] = material_price
+    return credit_values
+
 
 
 def calculate_query_results(queries, credit_values, roman_values):
