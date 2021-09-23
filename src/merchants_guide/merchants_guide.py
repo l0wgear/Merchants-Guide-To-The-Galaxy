@@ -1,3 +1,4 @@
+import re
 import roman
 
 
@@ -9,6 +10,7 @@ def destructure_input(input):
     Keyword arguments:
     input -- input text with new line separators
     """
+    # input = input.lower()
     num_assignment = [item.strip() for item in input.split("\n") if "Credits" not in item and "?" not in item]
     credit_assignment = [item.strip() for item in input.split("\n") if "Credits" in item and "?" not in item]
     queries = [item.strip() for item in input.split("\n") if "?" in item]
@@ -33,8 +35,8 @@ def convert_str_to_decimal(str, roman_values):
     str -- intergalactic number as a string
     roman_values -- dictionary of units and their roman values
     """
-    roman_numeral = "".join([roman_values[item] for item in str.split(' ')])
     try:
+        roman_numeral = "".join([roman_values[item] for item in str.split(' ')])
         return roman.fromRoman(roman_numeral) 
     except roman.InvalidRomanNumeralError:
         raise roman.InvalidRomanNumeralError("Invalid numeral")
@@ -72,4 +74,28 @@ def calculate_query_results(queries, credit_values, roman_values):
     credit_values -- dictionary of materials and their credit values
     roman_values -- dictionary of units and their roman values
     """
-    pass
+    results = []
+    for query in queries:
+        if ("how much is " in query):
+            try:
+                num_value = convert_str_to_decimal(query[13:-2], roman_values)
+                results.append(f"{query[13:-2]} is {num_value}")
+            except (roman.InvalidRomanNumeralError, KeyError) as e:
+                results.append(e)
+        elif ("how many Credits is " in query):
+            try:
+                split_list = query[20:-2].split(' ')
+                intergalactic_num = " ".join(split_list[0:-1])
+                num_value = convert_str_to_decimal(intergalactic_num, roman_values)
+                material = split_list[-1]
+                print(num_value, material)
+                credit_value = credit_values[material]
+                price = num_value * credit_value
+                results.append(f"{query[20:-2]} is {price} Credits")
+            except roman.InvalidRomanNumeralError as e:
+                results.append(e)
+            except KeyError:
+                results.append("Insufficient data")
+        else:
+            results.append("Unknown query")
+    return results
