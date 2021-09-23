@@ -90,7 +90,7 @@ def calculate_query_results(queries, credit_values, roman_values):
                 price = num_value * credit_value
                 results.append(f"{query[20:-2]} is {price} Credits")
             except roman.InvalidRomanNumeralError as e:
-                results.append(e)
+                results.append("Invalid numeral")
             except KeyError:
                 results.append("Insufficient data")
         else:
