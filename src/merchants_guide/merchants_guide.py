@@ -101,16 +101,17 @@ def output_results(results):
     for result in results:
         print(result)
 
-def main():
+def main(input_file="input.txt"):
     """
     Reads input from a file and writes conversion results to console
     """
-    with open("input.txt") as input:
+    with open(input_file) as input:
         num_assignment, credit_assignment, queries = destructure_input(input.readlines())
     roman_values = get_roman_values(num_assignment)
     credit_values = get_credit_values(credit_assignment, roman_values)
     query_results = calculate_query_results(queries, credit_values, roman_values)
     output_results(query_results)
+    return query_results
 
 
 if (__name__ == "__main__"):
