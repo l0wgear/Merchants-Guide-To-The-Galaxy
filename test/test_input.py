@@ -20,8 +20,8 @@ def test_get_roman_values():
 
 def test_convert_str_to_decimal():
     roman_values = {"glob": "I", "proc": "V"}
-    assert m.convert_str_to_decimal("glob glob") is 2
-    assert m.convert_str_to_decimal("glob proc") is 4
+    assert m.convert_str_to_decimal("glob glob", roman_values) is 2
+    assert m.convert_str_to_decimal("glob proc", roman_values) is 4
 
 def test_get_credit_values():
     roman_values = {"glob": "I", "proc": "V"}
