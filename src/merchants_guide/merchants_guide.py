@@ -78,8 +78,10 @@ def calculate_query_results(queries, credit_values, roman_values):
             try:
                 num_value = convert_str_to_decimal(query[12:-2], roman_values)
                 results.append(f"{query[12:-2]} is {num_value}")
-            except (roman.InvalidRomanNumeralError, KeyError) as e:
-                results.append(e)
+            except roman.InvalidRomanNumeralError as e:
+                results.append("Invalid numeral")
+            except KeyError:
+                results.append("Insufficient data")
         elif ("how many Credits is " in query):
             try:
                 split_list = query[20:-2].split(' ')
