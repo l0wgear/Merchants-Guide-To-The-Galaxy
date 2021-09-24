@@ -1,3 +1,4 @@
+[![Tests](https://github.com/l0wgear/Merchants-Guide-To-The-Galaxy/actions/workflows/tests.yml/badge.svg)](https://github.com/l0wgear/Merchants-Guide-To-The-Galaxy/actions/workflows/tests.yml)
 # Coding assignment for itemis CC Cloud & Enterprise recruiting
 
 ## Problem 3: MERCHANT'S GUIDE TO THE GALAXY
